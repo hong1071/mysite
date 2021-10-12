@@ -11,7 +11,7 @@ public class MvcUtil {
 	
 	public static void forward(String path,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
-		RequestDispatcher rd = request.getRequestDispatcher(path);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/" + path + ".jsp");
 		rd.forward(request, response);
 	}
 
