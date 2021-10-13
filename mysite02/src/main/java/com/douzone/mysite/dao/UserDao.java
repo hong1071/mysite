@@ -55,6 +55,118 @@ public class UserDao {
 		return result;
 	}
 	
+	public static boolean update(UserVo vo) {
+		
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getconnection();
+			
+			System.out.println(vo.getEmail());
+			System.out.println(vo.getPassword());
+			System.out.println(vo.getGender());
+			System.out.println(vo.getName());
+			System.out.println(vo.getNo());
+			
+			//3. SQL 구문을 준비한다.
+			String sql = "update user "
+						+ "set email = ifnull(?, email)"
+							+ ", password = ?"
+							+ ", gender = ifnull(?, gender) "
+							+ ", name = ifnull(?, name)"
+						+ "where no = ?";							//? 자리에 바인딩을 한다.
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. 바인딩(Binding)을 한다.
+			pstmt.setString(1, vo.getEmail());
+			pstmt.setString(2, vo.getPassword());
+			pstmt.setString(3, vo.getGender());
+			pstmt.setString(4, vo.getName());
+			pstmt.setLong(5, vo.getNo());
+			
+			//5. SQL 구문을 실행한다.
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		} finally {
+			// clean up
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	
+	public UserVo findByNo(Long no) {
+		UserVo vo = null;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getconnection();
+			
+			//3. SQL 구문을 준비한다.
+			String sql = "select name, email, gender, no from user where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. binding
+			pstmt.setLong(1, no);
+			
+			//4. SQL 구문을 실행한다.
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				String name = rs.getString(1);
+				String email = rs.getString(2);
+				String gender = rs.getString(3);
+				Long userNo = rs.getLong(4);
+				
+				vo = new UserVo();
+				vo.setName(name);
+				vo.setEmail(email);
+				vo.setGender(gender);
+				vo.setNo(userNo);
+			}
+			
+		} catch(SQLException e) {
+			
+		} finally {
+			// clean up
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return vo;
+	}
+	
 	public UserVo findByEmailAndPassword(String email, String password){
 
 		UserVo vo = null;
@@ -134,8 +246,5 @@ public class UserDao {
 		return conn;
 	}
 
-	public UserVo findByNo(Long no) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
