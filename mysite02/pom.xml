@@ -11,13 +11,23 @@
   
   <dependencies>
 
-  	<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+  	<!-- mariadb.jdbc -->
 	<dependency>
 	    <groupId>org.mariadb.jdbc</groupId>
 	    <artifactId>mariadb-java-client</artifactId>
 	    <version>2.7.2</version>
 	</dependency>
+	
+	<!-- jstl -->
+		<dependency>
+		    <groupId>jstl</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+	
   </dependencies>
+  
+  
 	
 	<build>
 		<finalName>mysite02</finalName>
