@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.douzone.mysite.vo.guestbookVo;
+import com.douzone.mysite.vo.GuestbookVo;
 
 
-public class guestbookDao {
+public class GuestbookDao {
 	
-	public static boolean insert(guestbookVo vo) {
+	public static boolean insert(GuestbookVo vo) {
 		
 		boolean result = false;
 		Connection conn = null;
@@ -55,8 +55,8 @@ public class guestbookDao {
 		return result;
 	}
 	
-	public List<guestbookVo> findAll(){
-		List<guestbookVo> result = new ArrayList<>();
+	public List<GuestbookVo> findAll(){
+		List<GuestbookVo> result = new ArrayList<>();
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -79,7 +79,7 @@ public class guestbookDao {
 				String regDate = rs.getString(3);
 				String message = rs.getString(4);
 				
-				guestbookVo vo = new guestbookVo();
+				GuestbookVo vo = new GuestbookVo();
 				vo.setNo(no);
 				vo.setName(name);
 				vo.setRegDate(regDate);

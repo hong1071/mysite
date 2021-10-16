@@ -9,7 +9,7 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="${pageContext.request.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -23,27 +23,34 @@
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>제목입니다.</td>
+						<td>${vo.title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								내용 1입니다.<br>
-								내용 2입니다.<br>
-								내용 3입니다.
+								${vo.contents }
 							</div>
 						</td>
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="">글목록</a>
-					<a href="">글수정</a> <!-- 내 글일때만 가능하도록 -->
+					<a href="${pageContext.request.contextPath }/board?a=list&pNum=1">글목록</a>
+						<c:choose>
+							<c:when test='${vo.userNo == authUser.no }'>
+								<a href="${pageContext.request.contextPath }/board?a=modify&bno=${vo.no}">글수정</a> <!-- 내 글일때만 가능하도록 -->
+							</c:when>
+						</c:choose>
+						<c:choose>
+							<c:when test='${authUser != null }'>
+								<a href="${pageContext.request.contextPath }/board?a=reply&bno=${vo.no}">답글</a>
+							</c:when>
+						</c:choose>
 				</div>
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
-<c:import url="/WEB-INF/views/includes/footer.jsp" />
+		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
 </body>
 </html>

@@ -6,8 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.douzone.mysite.dao.guestbookDao;
-import com.douzone.mysite.vo.guestbookVo;
+import com.douzone.mysite.dao.GuestbookDao;
+import com.douzone.mysite.vo.GuestbookVo;
 import com.douzone.web.mvc.Action;
 
 public class AddAction implements Action {
@@ -18,11 +18,11 @@ public class AddAction implements Action {
 		String password = request.getParameter("pass");
 		String message = request.getParameter("content");
 		
-		guestbookVo vo = new guestbookVo();
+		GuestbookVo vo = new GuestbookVo();
 		vo.setName(name);
 		vo.setPassword(password);
 		vo.setMessage(message);
-		new guestbookDao().insert(vo);
+		new GuestbookDao().insert(vo);
 		
 		response.sendRedirect("/mysite02/guestbook?a=list");
 	}

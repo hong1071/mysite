@@ -1,6 +1,6 @@
 package com.douzone.mysite.vo;
 
-public class guestbookVo {
+public class GuestbookVo {
 	
 	private long no;
 	private String name;

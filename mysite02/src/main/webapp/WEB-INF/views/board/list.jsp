@@ -26,50 +26,65 @@
 						<th>조회수</th>
 						<th>작성일</th>
 						<th>&nbsp;</th>
-					</tr>				
-					<tr>
-						<td>3</td>
-						<td style="text-align:left;padding-left:20px"><img src='' /><a href="${pageContext.servletContext.contextPath }/assets/images/reply.png">세 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-10-11 12:04:20</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td style="text-align:left;"><a href="">두 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-10-02 12:04:12</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td style="text-align:left;"><a href="">첫 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-09-25 07:24:32</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
+					</tr>			
+					<c:set var='count' value='${fn:length(list) }' />	
+					<c:forEach items='${list }' var='vo' varStatus='status'>
+						<tr>
+							<td>[${count-status.index }]</td>
+							<td style="text-align:left; padding-left:${(vo.depth - 1)*20}px;">
+								<c:choose>
+									<c:when test='${vo.orderNo != 1}'>
+										<img src="${pageContext.request.contextPath }/assets/images/reply.png" />
+									</c:when>									
+								</c:choose>
+								<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no}">${vo.title }</a>
+							</td>
+							<td>${vo.userName }</td>
+							<td>${vo.hit }</td>
+							<td>${vo.regDate }</td>
+							<td><a href="" class="del">삭제</a></td>
+						</tr>
+					</c:forEach>
 				</table>
+				
+				<!--페이징 오류 방지를 위함: 1 미만의 값은 1로, 최대값을 초과하는 값은 최댓값으로 값을 지정한다 -->
+				<c:set var="beginNum" value="${pageNum - 2 }"/>
+				<c:set var="endNum" value="${pageNum + 2 }"/>
+				<c:choose>
+					<c:when test="${beginNum < 1 }">
+						${beginNum = 1 }
+					</c:when>
+					<c:when test="${endNum > pageLength }">
+						${endNum = pageLength }
+					</c:when>
+				</c:choose>	
 				
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+						<li><a href="${pageContext.request.contextPath }/board?a=list&pNum=${pageNum - 1}">◀</a></li>
+							<c:forEach var='i' begin='${beginNum }' end='${endNum }'>
+								<c:choose>
+									<c:when test="${pageNum == i }">
+										<li class="selected" ><a href="${pageContext.request.contextPath }/board?a=list&pNum=${i}">${i }</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="${pageContext.request.contextPath }/board?a=list&pNum=${i}">${i }</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						<li><a href="${pageContext.request.contextPath }/board?a=list&pNum=${pageNum + 1}">▶</a></li>
 					</ul>
-				</div>					
+				</div>			
+					
 				<!-- pager 추가 -->
-				
-				<div class="bottom">
-					<a href="" id="new-book">글쓰기</a>
-				</div>				
+					<div class="bottom">
+						<c:choose>
+							<c:when test="${authUser != null }">
+								<a href="${pageContext.request.contextPath }/board?a=write&userNo=${authUser.no}" id="new-book">글쓰기</a>
+							</c:when>	
+						</c:choose>
+					</div>			
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp">

@@ -1,4 +1,4 @@
-package com.douzone.web.mysite.mvc.guestbook;
+package com.douzone.web.mysite.mvc.board;
 
 import java.io.IOException;
 
@@ -6,20 +6,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.douzone.mysite.dao.GuestbookDao;
 import com.douzone.web.mvc.Action;
+import com.douzone.web.util.MvcUtil;
 
-public class DelDataAction implements Action {
+public class WriteFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String no = request.getParameter("no");
-		String password = request.getParameter("password");
-		
-		new GuestbookDao().delete(no, password);
-		
-		response.sendRedirect("/mysite02/guestbook?a=list");
+		MvcUtil.forward("board/write", request, response);
 
 	}
 
