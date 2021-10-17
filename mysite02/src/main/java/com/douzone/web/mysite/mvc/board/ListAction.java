@@ -28,6 +28,14 @@ public class ListAction implements Action {
 		
 		// (전체 글 갯수 / 10) + 1 = 페이징 최댓값
 		int pageLength = (int) Math.ceil((AllList.size() / 10) + 1);
+		
+		//pageNum 관리: .
+		if(pageNum < 1) {
+			pageNum = 1;
+		}
+		else if(pageNum > pageLength) {
+			pageNum = pageLength;
+		}
 
 		//페이지에 따른 글 갯수를 나타낸다.
 		List<BoardVo> list = dao.findByPage(pageNum - 1);

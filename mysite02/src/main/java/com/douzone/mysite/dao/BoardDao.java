@@ -24,7 +24,7 @@ public class BoardDao {
 			
 			//3. SQL 구문을 준비한다.
 			String sql = "insert into board"
-					+ "    select null, ?, ?, 0 , now(), max(group_no) + 1, 1, 1, ?"
+					+ "    select null, ?, ?, 0 , now(), ifnull(max(group_no) + 1, 1), 1, 1, ?"
 					+ "    from board";		//? 자리에 바인딩을 한다.
 			pstmt = conn.prepareStatement(sql);
 			
@@ -148,7 +148,93 @@ public class BoardDao {
 		return result;
 	}
 	
-	public static boolean UpdateOrderNo(BoardVo vo) {
+	public static boolean delete(int boardNum) {
+		
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getconnection();
+			
+			//3. SQL 구문을 준비한다.
+			String sql = "update board"
+					+ "   set title = '삭제된 게시물입니다.',"
+					+ "		  contents = '삭제된 게시물입니다.'"
+					+ "   where no = ?";		//? 자리에 바인딩을 한다.
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. 바인딩(Binding)을 한다.
+			pstmt.setLong(1, boardNum);
+			
+			//5. SQL 구문을 실행한다.
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		} finally {
+			// clean up
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+
+	public static boolean hitNumUpdate(int boardNo) {
+		
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getconnection();
+			
+			//3. SQL 구문을 준비한다.
+			String sql = "update board"
+					+ "   set hit = hit + 1"
+					+ "   where no = ?";		//? 자리에 바인딩을 한다.
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. 바인딩(Binding)을 한다.
+			pstmt.setInt(1, boardNo);
+			
+			//5. SQL 구문을 실행한다.
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		} finally {
+			// clean up
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	public static boolean UpdateOrderNo1(BoardVo vo) {
 		
 		boolean result = false;
 		Connection conn = null;
@@ -169,6 +255,52 @@ public class BoardDao {
 			pstmt.setInt(1, vo.getGroupNo());
 			pstmt.setInt(2, vo.getDepth());
 			pstmt.setInt(3, vo.getOrderNo());
+			
+			//5. SQL 구문을 실행한다.
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		} finally {
+			// clean up
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	public static boolean UpdateOrderNo2(BoardVo vo) {
+		
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getconnection();
+			
+			//3. SQL 구문을 준비한다.
+			String sql = "update board\r\n"
+					+ "   set order_no = order_no + 1"
+					+ "   where group_no = ?"
+//					+ "			and depth = ?"
+					+ "			and order_no > ?";		//? 자리에 바인딩을 한다.
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. 바인딩(Binding)을 한다.
+			pstmt.setInt(1, vo.getGroupNo());
+//			pstmt.setInt(2, vo.getDepth());
+			pstmt.setInt(2, vo.getOrderNo());
 			
 			//5. SQL 구문을 실행한다.
 			pstmt.executeUpdate();

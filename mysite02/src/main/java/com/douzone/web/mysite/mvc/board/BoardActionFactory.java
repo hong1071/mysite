@@ -42,6 +42,10 @@ public class BoardActionFactory extends ActionFactory {
 			
 			action = new ReplySuccessAction();
 		}		
+		else if("delete".equals(actionName)) {
+			
+			action = new DeleteAction();
+		}	
 		else {
 			
 			action = new MainAction();

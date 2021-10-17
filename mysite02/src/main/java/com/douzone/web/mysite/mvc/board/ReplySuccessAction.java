@@ -30,12 +30,20 @@ public class ReplySuccessAction implements Action {
 		int bUserNo = Integer.parseInt(userNo);
 		
 		//같은 그룹 내의 orderNo 조정
-		BoardVo vo1 = new BoardVo();
-		vo1.setGroupNo(bGroupNo);
-		vo1.setDepth(bDepth);
-		vo1.setOrderNo(bOrderNo);
-		new BoardDao().UpdateOrderNo(vo1);
-		
+		if(bOrderNo == 1) {
+			BoardVo vo1 = new BoardVo();
+			vo1.setGroupNo(bGroupNo);
+			vo1.setDepth(bDepth);
+			vo1.setOrderNo(bOrderNo);
+			new BoardDao().UpdateOrderNo2(vo1);
+		}
+		else {
+			BoardVo vo1 = new BoardVo();
+			vo1.setGroupNo(bGroupNo);
+			vo1.setDepth(bDepth);
+			vo1.setOrderNo(bOrderNo);
+			new BoardDao().UpdateOrderNo1(vo1);
+		}
 		
 		//답글 insert
 		BoardVo vo2 = new BoardVo();

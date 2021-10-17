@@ -33,7 +33,7 @@
 							<td>[${count-status.index }]</td>
 							<td style="text-align:left; padding-left:${(vo.depth - 1)*20}px;">
 								<c:choose>
-									<c:when test='${vo.orderNo != 1}'>
+									<c:when test='${vo.depth != 1}'>
 										<img src="${pageContext.request.contextPath }/assets/images/reply.png" />
 									</c:when>									
 								</c:choose>
@@ -42,7 +42,14 @@
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
-							<td><a href="" class="del">삭제</a></td>
+							<c:choose>
+								<c:when test="${authUser.no == vo.userNo}">
+									<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}" class="del">삭제</a></td>
+								</c:when>
+								<c:otherwise>
+									<td><a href="" class="del2"></a></td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 					</c:forEach>
 				</table>
@@ -50,14 +57,12 @@
 				<!--페이징 오류 방지를 위함: 1 미만의 값은 1로, 최대값을 초과하는 값은 최댓값으로 값을 지정한다 -->
 				<c:set var="beginNum" value="${pageNum - 2 }"/>
 				<c:set var="endNum" value="${pageNum + 2 }"/>
-				<c:choose>
-					<c:when test="${beginNum < 1 }">
-						${beginNum = 1 }
-					</c:when>
-					<c:when test="${endNum > pageLength }">
-						${endNum = pageLength }
-					</c:when>
-				</c:choose>	
+				<c:if test="${beginNum < 1 }">
+					<c:set var="beginNum" value="${beginNum = 1 }"/>
+				</c:if>
+				<c:if test="${endNum > pageLength  }">
+					<c:set var="endNum" value="${endNum = pageLength }"/>
+				</c:if>
 				
 				<!-- pager 추가 -->
 				<div class="pager">
