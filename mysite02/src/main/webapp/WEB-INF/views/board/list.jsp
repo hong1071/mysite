@@ -30,7 +30,7 @@
 					<c:set var='count' value='${fn:length(list) }' />	
 					<c:forEach items='${list }' var='vo' varStatus='status'>
 						<tr>
-							<td>[${count-status.index }]</td>
+							<td>[${vo.rowNum }]</td>
 							<td style="text-align:left; padding-left:${(vo.depth - 1)*20}px;">
 								<c:choose>
 									<c:when test='${vo.depth != 1}'>
@@ -60,9 +60,16 @@
 				<c:if test="${beginNum < 1 }">
 					<c:set var="beginNum" value="${beginNum = 1 }"/>
 				</c:if>
+				<c:if test="${beginNum == 1 }">
+					<c:set var="endNum" value="${endNum = 5 }"/>
+				</c:if>
+				<c:if test="${beginNum < 1 }">
+					<c:set var="beginNum" value="${beginNum = 1 }"/>
+				</c:if>
 				<c:if test="${endNum > pageLength  }">
 					<c:set var="endNum" value="${endNum = pageLength }"/>
 				</c:if>
+
 				
 				<!-- pager 추가 -->
 				<div class="pager">

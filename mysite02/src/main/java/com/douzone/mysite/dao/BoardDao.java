@@ -409,13 +409,21 @@ public class BoardDao {
 			conn = getconnection();
 			
 			//3. SQL 구문을 준비한다.
-			String sql = "select t1.no, t1.title, t1.contents, t1.hit, t1.reg_date, t1.group_no, t1.order_no, t1.depth, t1.user_no, t2.name"
-					+ "   from board t1, user t2"
-					+ "   where t1.user_no = t2.no"
-					+ "   order by t1.group_no desc, "
-					+ "			   t1.order_no asc"
-					+ "	  limit ?0, 10";
-			
+			String sql = "select * "
+					+ "			from( "
+					+ "				select t.*, @rownum := @rownum+1 AS RNUM"
+					+ "				from( "
+					+ "					select t1.no as no, lpad(t1.title, 10 * t1.depth, ' ') as title, "
+					+ "							t1.contents as contents, t1.hit as hit, t1.reg_date as reg_date, "
+					+ "							t1.group_no as group_no, t1.order_no as order_no, t1.depth as depth, "
+					+ "							t1.user_no as user_no, t2.name as name"
+					+ "					from board t1, user t2, (SELECT @rownum := 0) AS R"
+					+ "					where t1.user_no = t2.no"
+					+ "					order by t1.group_no desc, t1.order_no asc"
+					+ "				) t"
+					+ "			) tt"
+					+ "			limit ?0, 10";
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, pageNum);
 			
@@ -432,6 +440,7 @@ public class BoardDao {
 				int depth = rs.getInt(8);
 				int userNo = rs.getInt(9);
 				String userName = rs.getString(10);
+				int rowNum = rs.getInt(11);
 				
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
@@ -444,6 +453,7 @@ public class BoardDao {
 				vo.setDepth(depth);
 				vo.setUserNo(userNo);
 				vo.setUserName(userName);
+				vo.setRowNum(rowNum);
 				
 				result.add(vo);
 			}
