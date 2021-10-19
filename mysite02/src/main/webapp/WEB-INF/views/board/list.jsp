@@ -54,7 +54,7 @@
 					</c:forEach>
 				</table>
 				
-				<!--페이징 오류 방지를 위함: 1 미만의 값은 1로, 최대값을 초과하는 값은 최댓값으로 값을 지정한다 -->
+				<!--페이징 오류 방지를 위함(front): 1 미만의 값은 1로, 최대값을 초과하는 값은 최댓값으로 값을 지정한다 -->
 				<c:set var="beginNum" value="${pageNum - 2 }"/>
 				<c:set var="endNum" value="${pageNum + 2 }"/>
 				<c:if test="${beginNum < 1 }">

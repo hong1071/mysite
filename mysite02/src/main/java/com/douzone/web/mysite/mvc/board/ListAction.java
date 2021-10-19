@@ -29,7 +29,7 @@ public class ListAction implements Action {
 		// (전체 글 갯수 / 10) + 1 = 페이징 최댓값
 		int pageLength = (int) Math.ceil((AllList.size() / 10) + 1);
 		
-		//pageNum 관리: 1 미만의 값은 1로, 최대값을 초과하는 값은 최댓값으로 값을 지정한다
+		//pageNum 관리(back): 1 미만의 값은 1로, 최대값을 초과하는 값은 최댓값으로 값을 지정한다
 		if(pageNum < 1) {
 			pageNum = 1;
 		}
