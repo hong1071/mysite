@@ -35,7 +35,7 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board/board?a=list&pNum=1">글목록</a>
+					<a href="${pageContext.request.contextPath }/board?a=list&pNum=1">글목록</a>
 						<c:choose>
 							<c:when test='${vo.userNo == authUser.no }'>
 								<a href="${pageContext.request.contextPath }/board?a=modify&bno=${vo.no}">글수정</a> <!-- 내 글일때만 가능하도록 -->
