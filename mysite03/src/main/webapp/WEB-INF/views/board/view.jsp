@@ -35,10 +35,10 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board?a=list&pNum=1">글목록</a>
+					<a href="${pageContext.request.contextPath }/board/1">글목록</a>
 						<c:choose>
 							<c:when test='${vo.userNo == authUser.no }'>
-								<a href="${pageContext.request.contextPath }/board?a=modify&bno=${vo.no}">글수정</a> <!-- 내 글일때만 가능하도록 -->
+								<a href="${pageContext.request.contextPath }/board/modifyForm/${vo.no}">글수정</a> <!-- 내 글일때만 가능하도록 -->
 							</c:when>
 						</c:choose>
 						<c:choose>

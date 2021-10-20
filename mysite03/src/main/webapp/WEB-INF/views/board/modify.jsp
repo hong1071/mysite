@@ -15,7 +15,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board?a=modifySuccess">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/modify">
 					<table class="tbl-ex">
 						<input type="hidden" name="no" value="${vo.no }">
 						<tr>

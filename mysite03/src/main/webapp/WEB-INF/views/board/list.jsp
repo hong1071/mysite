@@ -37,14 +37,14 @@
 										<img src="${pageContext.request.contextPath }/assets/images/reply.png" />
 									</c:when>									
 								</c:choose>
-								<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no}">${vo.title }</a>
+								<a href="${pageContext.request.contextPath }/board/view/${vo.no}">${vo.title }</a>
 							</td>
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							<c:choose>
 								<c:when test="${authUser.no == vo.userNo}">
-									<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}" class="del">삭제</a></td>
+									<td><a href="${pageContext.request.contextPath }/board/delete/${vo.no}" class="del">삭제</a></td>
 								</c:when>
 								<c:otherwise>
 									<td><a href="" class="del2"></a></td>
@@ -55,8 +55,8 @@
 				</table>
 				
 				<!--페이징 오류 방지를 위함(front): 1 미만의 값은 1로, 최대값을 초과하는 값은 최댓값으로 값을 지정한다 -->
-				<c:set var="beginNum" value="${pageNum - 2 }"/>
-				<c:set var="endNum" value="${pageNum + 2 }"/>
+				<c:set var="beginNum" value="${pageNo - 2 }"/>
+				<c:set var="endNum" value="${pageNo + 2 }"/>
 				<c:if test="${beginNum < 1 }">
 					<c:set var="beginNum" value="${beginNum = 1 }"/>
 				</c:if>
@@ -74,26 +74,25 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="${pageContext.request.contextPath }/board?a=list&pNum=${pageNum - 1}">◀</a></li>
+						<li><a href="${pageContext.request.contextPath }/board/${pageNo - 1}">◀</a></li>
 							<c:forEach var='i' begin='${beginNum }' end='${endNum }'>
 								<c:choose>
-									<c:when test="${pageNum == i }">
-										<li class="selected" ><a href="${pageContext.request.contextPath }/board?a=list&pNum=${i}">${i }</a></li>
+									<c:when test="${pageNo == i }">
+										<li class="selected" ><a href="${pageContext.request.contextPath }/board/${i}">${i }</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="${pageContext.request.contextPath }/board?a=list&pNum=${i}">${i }</a></li>
+										<li><a href="${pageContext.request.contextPath }/board/${i}">${i }</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-						<li><a href="${pageContext.request.contextPath }/board?a=list&pNum=${pageNum + 1}">▶</a></li>
+						<li><a href="${pageContext.request.contextPath }/board/${pageNo + 1}">▶</a></li>
 					</ul>
-				</div>			
-					
+				</div>	
 				<!-- pager 추가 -->
 					<div class="bottom">
 						<c:choose>
 							<c:when test="${authUser != null }">
-								<a href="${pageContext.request.contextPath }/board?a=write&userNo=${authUser.no}" id="new-book">글쓰기</a>
+								<a href="${pageContext.request.contextPath }/board/write" id="new-book">글쓰기</a>
 							</c:when>	
 						</c:choose>
 					</div>			
