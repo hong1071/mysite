@@ -43,7 +43,7 @@
 						</c:choose>
 						<c:choose>
 							<c:when test='${authUser != null }'>
-								<a href="${pageContext.request.contextPath }/board?a=reply&bno=${vo.no}">답글</a>
+								<a href="${pageContext.request.contextPath }/board/replyForm/${vo.no}">답글</a>
 							</c:when>
 						</c:choose>
 				</div>

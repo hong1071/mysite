@@ -105,8 +105,8 @@ public class BoardController {
 	}
 	
 	/*
-	@RequestMapping("reply")
-	public String reply() {
+	@RequestMapping("replyForm/{no}")
+	public String replyForm(@PathVariable("no") int BoardNo) {
 		boardService.reply();
 		return "";
 	}
