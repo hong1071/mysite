@@ -17,14 +17,17 @@ public class ModifyAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String no = request.getParameter("bno");
+		String bno = request.getParameter("bNo");
+		String pno = request.getParameter("pNo");
 		
-		int Bno = Integer.parseInt(no); 
+		int bNo = Integer.parseInt(bno);
+		int pNo = Integer.parseInt(pno); 
 		
 		BoardDao dao = new BoardDao();
 		BoardVo vo = new BoardVo(); 
-		vo = dao.findByNo(Bno);
+		vo = dao.findByNo(bNo);
 		request.setAttribute("vo", vo);
+		request.setAttribute("pNo", pNo);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/modify.jsp");
 		MvcUtil.forward("board/modify", request, response);
 

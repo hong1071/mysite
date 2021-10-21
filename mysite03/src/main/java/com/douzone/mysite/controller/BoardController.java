@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
@@ -104,19 +103,60 @@ public class BoardController {
 		return "redirect:/board/1";
 	}
 	
-	/*
+	
 	@RequestMapping("replyForm/{no}")
-	public String replyForm(@PathVariable("no") int BoardNo) {
-		boardService.reply();
-		return "";
+	public String replyForm(@PathVariable("no") int BoardNo, Model model) {
+		BoardVo vo = new BoardVo(); 
+		vo = boardService.findByNo(BoardNo);
+		model.addAttribute("vo", vo);
+		return "board/reply";
 	}
 	
-	@RequestMapping("replySuccess")
-	public String replySuccess() {
-		boardService.replySuccess();
-		return "";
+	@RequestMapping("reply")
+	public String reply(HttpServletRequest request) {
+		
+		String title = request.getParameter("title");
+		String contents = request.getParameter("content");
+		String groupNo = request.getParameter("groupNo");
+		String orderNo = request.getParameter("orderNo");
+		String depth = request.getParameter("depth");
+		String userNo = request.getParameter("no");
+		
+		int bGroupNo = Integer.parseInt(groupNo);
+		int bOrderNo = Integer.parseInt(orderNo);
+		int bDepth = Integer.parseInt(depth);
+		int bUserNo = Integer.parseInt(userNo);
+		
+		//같은 그룹 내의 orderNo 조정
+		if(bOrderNo == 1) {
+			BoardVo vo1 = new BoardVo();
+			vo1.setGroupNo(bGroupNo);
+			vo1.setDepth(bDepth);
+			vo1.setOrderNo(bOrderNo);
+			boardService.UpdateOrderNo2(vo1);
+		}
+		else {
+			BoardVo vo1 = new BoardVo();
+			vo1.setGroupNo(bGroupNo);
+			vo1.setDepth(bDepth);
+			vo1.setOrderNo(bOrderNo);
+			boardService.UpdateOrderNo1(vo1);
+		}
+		
+		//답글 insert
+		BoardVo vo2 = new BoardVo();
+		vo2.setTitle(title);
+		vo2.setContents(contents);
+		vo2.setGroupNo(bGroupNo);
+		vo2.setOrderNo(bOrderNo + 1);
+		vo2.setDepth(bDepth + 1);
+		vo2.setUserNo(bUserNo);
+		
+		boardService.replyInsert(vo2);
+		
+		return "redirect:/board/1";
 	}
-	*/
+	
 	
 	@RequestMapping("delete/{no}")
 	public String delete(@PathVariable("no") int boardNo) {

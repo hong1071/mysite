@@ -24,10 +24,14 @@ public class ReplySuccessAction implements Action {
 		String depth = request.getParameter("depth");
 		String userNo = request.getParameter("no");
 		
+		String pno = request.getParameter("pNo");
+		
 		int bGroupNo = Integer.parseInt(groupNo);
 		int bOrderNo = Integer.parseInt(orderNo);
 		int bDepth = Integer.parseInt(depth);
 		int bUserNo = Integer.parseInt(userNo);
+		
+		int pNo = Integer.parseInt(pno);
 		
 		//같은 그룹 내의 orderNo 조정
 		if(bOrderNo == 1) {
@@ -56,7 +60,7 @@ public class ReplySuccessAction implements Action {
 		
 		new BoardDao().replyInsert(vo2);
 		
-		MvcUtil.redirect(request.getContextPath() + "/board?a=list&pNum=1", request, response);
+		MvcUtil.redirect(request.getContextPath() + "/board?a=list&pNo="+ pNo, request, response);
 	
 
 	}

@@ -37,14 +37,14 @@
 										<img src="${pageContext.request.contextPath }/assets/images/reply.png" />
 									</c:when>									
 								</c:choose>
-								<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no}">${vo.title }</a>
+								<a href="${pageContext.request.contextPath }/board?a=view&bNo=${vo.no}&pNo=${pageNum}">${vo.title }</a>
 							</td>
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							<c:choose>
 								<c:when test="${authUser.no == vo.userNo}">
-									<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}" class="del">삭제</a></td>
+									<td><a href="${pageContext.request.contextPath }/board?a=delete&bNo=${vo.no}&pNo=${pageNum}" class="del">삭제</a></td>
 								</c:when>
 								<c:otherwise>
 									<td><a href="" class="del2"></a></td>
@@ -74,18 +74,18 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="${pageContext.request.contextPath }/board?a=list&pNum=${pageNum - 1}">◀</a></li>
+						<li><a href="${pageContext.request.contextPath }/board?a=list&pNo=${pageNum - 1}">◀</a></li>
 							<c:forEach var='i' begin='${beginNum }' end='${endNum }'>
 								<c:choose>
 									<c:when test="${pageNum == i }">
-										<li class="selected" ><a href="${pageContext.request.contextPath }/board?a=list&pNum=${i}">${i }</a></li>
+										<li class="selected" ><a href="${pageContext.request.contextPath }/board?a=list&pNo=${i}">${i }</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="${pageContext.request.contextPath }/board?a=list&pNum=${i}">${i }</a></li>
+										<li><a href="${pageContext.request.contextPath }/board?a=list&pNo=${i}">${i }</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-						<li><a href="${pageContext.request.contextPath }/board?a=list&pNum=${pageNum + 1}">▶</a></li>
+						<li><a href="${pageContext.request.contextPath }/board?a=list&pNo=${pageNum + 1}">▶</a></li>
 					</ul>
 				</div>			
 					

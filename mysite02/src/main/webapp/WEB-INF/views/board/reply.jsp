@@ -26,7 +26,8 @@
 					<input type = "hidden" name = "no" value="${authUser.no }">
 					<input type = "hidden" name = "groupNo" value="${vo.groupNo }">
 					<input type = "hidden" name = "orderNo" value="${vo.orderNo }">
-					<input type = "hidden" name = "depth" value="${vo.depth }">					
+					<input type = "hidden" name = "depth" value="${vo.depth }">
+					<input type = "hidden" name = "pNo" value="${pNo }">						
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -43,7 +44,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board?a=list">취소</a>
+						<a href="${pageContext.request.contextPath }/board?a=list&pNo=${pNo}">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				

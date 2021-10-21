@@ -14,12 +14,15 @@ public class DeleteAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String no = request.getParameter("no");
-		int boardNum = Integer.parseInt(no);
+		String bno = request.getParameter("bNo");
+		String pno = request.getParameter("pNo");
+		
+		int boardNum = Integer.parseInt(bno);
+		int pageNum = Integer.parseInt(pno); 
 		
 		new BoardDao().delete(boardNum);
 		
-		MvcUtil.redirect(request.getContextPath() + "/board?a=list&pNum=1", request, response);
+		MvcUtil.redirect(request.getContextPath() + "/board?a=list&pNo=" + pageNum, request, response);
 
 	}
 

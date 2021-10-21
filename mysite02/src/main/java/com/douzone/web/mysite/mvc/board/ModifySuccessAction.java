@@ -16,19 +16,21 @@ public class ModifySuccessAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String no = request.getParameter("no");
+		String bno = request.getParameter("bNo");
 		String title = request.getParameter("title");
 		String contents = request.getParameter("content");
+		String pno = request.getParameter("pNo");
 		
-		Long Bno = Long.parseLong(no);
+		Long bNo = Long.parseLong(bno);
+		Long pNo = Long.parseLong(pno);
 		
 		BoardVo vo = new BoardVo();
-		vo.setNo(Bno);
+		vo.setNo(bNo);
 		vo.setTitle(title);
 		vo.setContents(contents);
 		new BoardDao().Update(vo);
 		
-		MvcUtil.redirect(request.getContextPath() + "/board?a=view&no=" + Bno, request, response);
+		MvcUtil.redirect(request.getContextPath() + "/board?a=view&bNo=" + bNo +"&pNo=" + pNo, request, response);
 
 	}
 

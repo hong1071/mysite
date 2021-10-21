@@ -61,5 +61,20 @@ public class BoardService {
 		boardRepository.delete(boardNo);
 		
 	}
+
+	public void UpdateOrderNo2(BoardVo vo) {
+		boardRepository.UpdateOrderNo2(vo);
+		
+	}
+
+	public void UpdateOrderNo1(BoardVo vo) {
+		boardRepository.UpdateOrderNo1(vo);
+		
+	}
+
+	public void replyInsert(BoardVo vo) {
+		boardRepository.replyInsert(vo);
+		
+	}
 	
 }

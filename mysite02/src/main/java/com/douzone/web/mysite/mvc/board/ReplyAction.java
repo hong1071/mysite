@@ -16,14 +16,17 @@ public class ReplyAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String no = request.getParameter("bno");
+		String bno = request.getParameter("bNo");
+		String pno = request.getParameter("pNo");
 		
-		int bno = Integer.parseInt(no);
+		int bNo = Integer.parseInt(bno);
+		int pNo = Integer.parseInt(pno);
 		
 		BoardVo vo = new BoardVo();
 		BoardDao dao = new BoardDao();
-		vo = dao.findByNo(bno);
-		request.setAttribute("vo", vo);		
+		vo = dao.findByNo(bNo);
+		request.setAttribute("vo", vo);	
+		request.setAttribute("pNo", pNo);
 		MvcUtil.forward("board/reply", request, response);
 
 	}

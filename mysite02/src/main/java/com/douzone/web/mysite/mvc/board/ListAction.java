@@ -18,7 +18,7 @@ public class ListAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String Num = request.getParameter("pNum");
+		String Num = request.getParameter("pNo");
 		int pageNum = Integer.parseInt(Num);
 		
 		BoardDao dao = new BoardDao();

@@ -28,7 +28,7 @@ public class BoardAddAction implements Action {
 		vo.setUserNo(userNo);
 		new BoardDao().insert(vo);
 				
-		MvcUtil.redirect(request.getContextPath() + "/board?a=list&pNum=1", request, response);
+		MvcUtil.redirect(request.getContextPath() + "/board?a=list&pNo=1", request, response);
 		
 	}
 
