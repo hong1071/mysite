@@ -3,6 +3,7 @@ package com.douzone.mysite.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,7 +53,12 @@ public class BoardController {
 	
 	
 	@RequestMapping("/write")
-	public String write() {
+	public String write(HttpSession session) {
+		// 접근 제어(Access Control List)
+		BoardVo authUser = (BoardVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
 		
 		return "board/write";
 	}

@@ -15,7 +15,7 @@
 
 	<insert id="insert" parameterType="uservo">
 		<![CDATA[
-			insert into user values(null, #{name}, #{email}, #{password}, #{gender}, now())
+			insert into user values(null, #{name}, #{email}, #{password}, #{gender}, now(), 'USER')
 		]]>
 	</insert>	
 	
@@ -30,7 +30,7 @@
 	
 	<select id="findByNo" parameterType="long" resultType="uservo">
 		<![CDATA[
-			select name, email, gender, no 
+			select name, email, gender, no, role
 			from user 
 			where no = #{no}
 		]]>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.douzone.mysite.security.Auth;
 import com.douzone.mysite.service.UserService;
 import com.douzone.mysite.vo.UserVo;
 
@@ -41,16 +42,17 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public String logout(HttpSession session) {
-		
-		session.removeAttribute("authUser");
-		session.invalidate();
-		
-		return "redirect:/";
-	}
+//	LogoutInterceptor로 인해 사용하지 않음
+//	@RequestMapping(value="/logout", method=RequestMethod.GET)
+//	public String logout(HttpSession session) {
+//		
+//		session.removeAttribute("authUser");
+//		session.invalidate();
+//		
+//		return "redirect:/";
+//	}
 	
-//	LoingInterceptor로 인해 사용하지 않음
+//	LoginInterceptor로 인해 사용하지 않음
 //	@RequestMapping(value="/login", method=RequestMethod.POST)
 //	public String login(HttpSession session, Model model,
 //						@RequestParam(value="email", required = true, defaultValue = "") String email,
@@ -86,9 +88,10 @@ public class UserController {
 		return "user/update";
 	}	
 	
+	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String update(HttpSession session, UserVo userVo) {
-		
+	public String update(/*HttpSession session,*/@AuthUser UserVo authUser, UserVo userVo) {
+		/*
 		// 접근 제어(Access Control List)
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null) {
@@ -96,7 +99,7 @@ public class UserController {
 		}
 		
 		///////////////////////////////////////////////////////////////
-		
+		*/
 		userVo.setNo(authUser.getNo());
 		userService.updateUser(userVo);
 		
