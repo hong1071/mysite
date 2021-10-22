@@ -56,18 +56,21 @@
 					<a href="" id="upload-image">이미지 올리기</a>
 				</div>
 				<ul>
+					
+					<c:forEach items="${list}" var="vo">
 						<li>
-							<a	href="${pageContext.request.contextPath }/assets/gallery-examples/im1.jpg"
+							<a	href="${pageContext.request.contextPath }${vo.url }"
 								data-lightbox="gallery"
 								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery-examples/im1.jpg')">&nbsp;</a>
+								style="background-image:url('${pageContext.request.contextPath }${vo.url }')">&nbsp;</a>
 								
-							<a	href="${pageContext.request.contextPath }/gallery/delete/1"
+							<a	href="${pageContext.request.contextPath }/gallery/delete/${vo.no}"
 								class="del-button"
 								title="삭제">삭제</a>
 						</li>
-						
-						
+					</c:forEach>
+					
+						<!-- 
 						<li>
 							<a	href="${pageContext.request.contextPath }/assets/gallery-examples/im2.jpg"
 								data-lightbox="gallery"
@@ -221,7 +224,8 @@
 							<a	href="${pageContext.request.contextPath }/gallery/delete/15"
 								class="del-button"
 								title="삭제">삭제</a>
-						</li>																																				
+						</li>	
+						 -->																																			
 				</ul>	
 			</div>
 

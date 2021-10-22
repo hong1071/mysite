@@ -15,7 +15,7 @@ import com.douzone.mysite.vo.BoardVo;
 @Repository
 public class BoardRepository {
 	
-	public static boolean insert(BoardVo vo) {
+	public boolean insert(BoardVo vo) {
 		
 		boolean result = false;
 		Connection conn = null;
@@ -59,7 +59,7 @@ public class BoardRepository {
 		return result;
 	}
 	
-	public static boolean replyInsert(BoardVo vo) {
+	public boolean replyInsert(BoardVo vo) {
 		
 		boolean result = false;
 		Connection conn = null;
@@ -105,7 +105,7 @@ public class BoardRepository {
 		return result;
 	}
 	
-	public static boolean Update(BoardVo vo) {
+	public boolean Update(BoardVo vo) {
 		
 		boolean result = false;
 		Connection conn = null;
@@ -150,7 +150,7 @@ public class BoardRepository {
 		return result;
 	}
 	
-	public static boolean delete(int boardNum) {
+	public boolean delete(int boardNum) {
 		
 		boolean result = false;
 		Connection conn = null;
@@ -194,7 +194,7 @@ public class BoardRepository {
 	}
 	
 
-	public static boolean hitNumUpdate(int boardNo) {
+	public boolean hitNumUpdate(int boardNo) {
 		
 		boolean result = false;
 		Connection conn = null;
@@ -236,7 +236,7 @@ public class BoardRepository {
 		return result;
 	}
 	
-	public static boolean UpdateOrderNo1(BoardVo vo) {
+	public boolean UpdateOrderNo1(BoardVo vo) {
 		
 		boolean result = false;
 		Connection conn = null;
@@ -282,7 +282,7 @@ public class BoardRepository {
 		return result;
 	}
 	
-	public static boolean UpdateOrderNo2(BoardVo vo) {
+	public boolean UpdateOrderNo2(BoardVo vo) {
 		
 		boolean result = false;
 		Connection conn = null;
