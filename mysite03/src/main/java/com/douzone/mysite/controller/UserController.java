@@ -88,10 +88,9 @@ public class UserController {
 		return "user/update";
 	}	
 	
-	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String update(/*HttpSession session,*/@AuthUser UserVo authUser, UserVo userVo) {
-		/*
+	public String update(HttpSession session, UserVo userVo) {
+		
 		// 접근 제어(Access Control List)
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null) {
@@ -99,7 +98,7 @@ public class UserController {
 		}
 		
 		///////////////////////////////////////////////////////////////
-		*/
+		
 		userVo.setNo(authUser.getNo());
 		userService.updateUser(userVo);
 		
