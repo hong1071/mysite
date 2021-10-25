@@ -89,7 +89,8 @@ public class UserController {
 		authUser.setName(userVo.getName());
 		
 		return "redirect:/user/update";
-	}	
+	}		
+	
 	/*
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(HttpSession session, Model model) {

@@ -34,7 +34,13 @@ public class UserRepository {
 	
 	
 	public UserVo findByNo(long no) throws UserRepositoryException{
+	
 		return sqlSession.selectOne("user.findByNo", no);
+	}
+	
+	public UserVo findByEmail(String email) {
+		
+		return sqlSession.selectOne("user.findByEmail", email);
 	}
 	
 	public UserVo findByEmailAndPassword(String email, String password) throws UserRepositoryException{
@@ -44,5 +50,7 @@ public class UserRepository {
 		map.put("p", password);
 		return sqlSession.selectOne("user.findByEmailAndPassword", map);
 	}
+
+	
 	
 }
