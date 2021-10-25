@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.douzone.mysite.security.Auth;
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
 
@@ -51,14 +52,10 @@ public class BoardController {
 		return "board/view";
 	}
 	
-	
+	@Auth
 	@RequestMapping("/write")
 	public String write(HttpSession session) {
-		// 접근 제어(Access Control List)
-		BoardVo authUser = (BoardVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
+
 		
 		return "board/write";
 	}

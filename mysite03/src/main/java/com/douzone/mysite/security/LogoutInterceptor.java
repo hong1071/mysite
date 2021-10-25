@@ -18,9 +18,10 @@ public class LogoutInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		session.removeAttribute("authUser");
+		session.invalidate();
 		
-		
-		return super.preHandle(request, response, handler);
+		response.sendRedirect(request.getContextPath());
+		return false;
 	}
 
 }
