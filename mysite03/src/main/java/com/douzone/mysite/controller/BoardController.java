@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.douzone.mysite.security.Auth;
 import com.douzone.mysite.service.BoardService;
@@ -52,11 +53,9 @@ public class BoardController {
 		return "board/view";
 	}
 	
-	@Auth
-	@RequestMapping("/write")
-	public String write(HttpSession session) {
-
-		
+	
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public String write() {
 		return "board/write";
 	}
 	
@@ -142,7 +141,7 @@ public class BoardController {
 			BoardVo vo1 = new BoardVo();
 			vo1.setGroupNo(bGroupNo);
 			vo1.setDepth(bDepth);
-			vo1.setOrderNo(bOrderNo);
+			vo1.setOrderNo(bOrderNo + 1);
 			boardService.UpdateOrderNo1(vo1);
 		}
 		
