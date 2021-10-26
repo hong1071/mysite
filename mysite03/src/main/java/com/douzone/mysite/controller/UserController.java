@@ -28,7 +28,7 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join() {
+	public String join(@ModelAttribute UserVo vo) {
 		return "user/join";
 	}
 	
@@ -36,10 +36,11 @@ public class UserController {
 	public String join(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model) {	//@ModelAttribute == model.addAtrribute
 		
 		if(result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors();
-			for(ObjectError error : list) {
-				System.out.println(error);
-			}
+			//에러 출력
+//			List<ObjectError> list = result.getAllErrors();
+//			for(ObjectError error : list) {
+//				System.out.println(error);
+//			}
 			/*
 			Map<String, Object> map = result.getModel();
 			model.addAttribute("userVo", map.get("userVo"));
@@ -47,7 +48,7 @@ public class UserController {
 			model.addAllAttributes(result.getModel());		//위와 같음 
 			return "user/join";
 		}
-		//userService.join(vo);
+		userService.join(vo);
 		return "redirect:/user/joinsuccess";
 	}
 	
