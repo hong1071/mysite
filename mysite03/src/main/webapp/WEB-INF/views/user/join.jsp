@@ -109,16 +109,16 @@
 						</spring:hasBindErrors>
 					</p>
 					<label class="block-label" for="email">이메일</label>
-					<p>
-						<form:input path="email" />
-					</p>
+					<form:input path="email" />
 					<input id="btnChkEmail" type="button" value="id 중복체크">
 					<img id="imgCheckEmail" src="${pageContext.request.contextPath }/assets/images/check.png" style="width:20px;display:none">
-					<form:errors path="email" />
+					<p style="text-align:left; padding-left:0; color:red;">
+						<form:errors path="email" />
+					</p>
 					<label class="block-label">패스워드</label>
 					<form:password path="password"/>
-					<p>
-						<form:input path="password" />
+					<p style="text-align:left; padding-left:0; color: #f00">
+						<form:errors path="password" />
 					</p>
 					
 					<fieldset>
