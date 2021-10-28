@@ -14,7 +14,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
-		//1. hadler 종류확인
+		//1. handler 종류확인
 		if(handler instanceof HandlerMethod == false) {
 			return true;
 		}
@@ -29,6 +29,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		if(auth == null) {
 			//과제
 			//auth = handlerMethod.
+			auth = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Auth.class);
+			
 		}
 		
 		//5. Type과 Method에 @Auth가 적용이 안되어 있는 경우
@@ -54,6 +56,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		String role = auth.role();
 		
 		//8. 권한 체크(과제)
+		if(role.equals("ADMIN")) {
+			
+		}
 		
 		
 		return false;
