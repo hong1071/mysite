@@ -72,7 +72,7 @@ public class UserController {
 //		return "redirect:/";
 //	}
 	
-//	LoginInterceptor로 인해 사용하지 않음
+//	LoginInterceptor로 인해 사용하지 않음 
 //	@RequestMapping(value="/login", method=RequestMethod.POST)
 //	public String login(HttpSession session, Model model,
 //						@RequestParam(value="email", required = true, defaultValue = "") String email,
