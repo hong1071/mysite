@@ -4,20 +4,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
+import org.springframework.stereotype.Component;
 
-import com.douzone.config.app.DBConfig;
-import com.douzone.config.app.MyBatisConfig;
-
-/*
- * 
- * configure들을 모으는 역할
- * 
- * */
+import com.douzone.config.web.MvcConfig;
 
 @Configuration
 @EnableAspectJAutoProxy
-@ComponentScan({"com.douzone.mysite.service", "com.douzone.mysite.repository", "com.douzone.mysite.aspect"})
-@Import({DBConfig.class, MyBatisConfig.class})
-public class AppConfig {
+@ComponentScan({"com.douzone.mysite.controller", "com.douzone.mysite.exception"})
+@Import({MvcConfig.class})
+public class WebConfig {
 
 }

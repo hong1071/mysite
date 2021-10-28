@@ -78,13 +78,6 @@
  		</mvc:interceptor>
  	</mvc:interceptors>
 	
-	<!-- ViewResolver 설정 -->
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	   <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-	   <property name="prefix" value="/WEB-INF/views/" />
-	   <property name="suffix" value=".jsp" />
-	</bean>
-	
 	<!-- Vaildation: MessageSource -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
