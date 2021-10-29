@@ -1,23 +1,45 @@
 package com.douzone.mysite.controller;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.douzone.mysite.repository.SiteRepository;
 import com.douzone.mysite.security.Auth;
+import com.douzone.mysite.security.AuthUser;
+import com.douzone.mysite.service.FileUploadService;
+import com.douzone.mysite.service.SiteService;
+import com.douzone.mysite.vo.SiteVo;
+import com.douzone.mysite.vo.UserVo;
 
 @Auth(role="ADMIN")
 @Controller
-@RequestMapping("admin")
+@RequestMapping("/admin")
 public class AdminController {
 	
 	@Autowired
 	ServletContext servletContext;
+	
+	@Autowired
+	private SiteService siteService;
+	
+	@Autowired
+	private FileUploadService fileUploadService;
 
-	@RequestMapping("/")
-	public String main() {
+	@RequestMapping("")
+	public String main(Model model) {
+		
+		SiteVo vo = siteService.getSite();
+		model.addAttribute("siteVo", vo);
+		
 		return "admin/main";
 	}
 	
@@ -34,6 +56,18 @@ public class AdminController {
 	@RequestMapping("/user")
 	public String user() {
 		return "admin/user";
+	}
+	
+	@RequestMapping("/main/update")
+	public String mainUpdate(SiteVo site, MultipartFile file1) {
+		System.out.println();
+		String profile = fileUploadService.restore(file1);
+		site.setProfile(profile);
+		
+		siteService.update(site);
+		servletContext.setAttribute("site", site);
+		
+		return "redirect:/admin";
 	}
 	
 }

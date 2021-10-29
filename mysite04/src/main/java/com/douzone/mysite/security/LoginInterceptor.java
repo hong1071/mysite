@@ -22,7 +22,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+		System.out.println(email +  " + " + password);
+		
 		UserVo authUser = userService.getUser(email, password);
+		System.out.println(authUser);
 		if(authUser == null) {
 			request.setAttribute("result", "fail");
 			request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
@@ -30,8 +33,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		// session 처리
-		System.out.println(authUser);
-		
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		response.sendRedirect(request.getContextPath());
