@@ -8,6 +8,7 @@ import com.douzone.mysite.vo.SiteVo;
 
 @Service
 public class SiteService {
+	
 	@Autowired
 	private SiteRepository siteRepository;
 
