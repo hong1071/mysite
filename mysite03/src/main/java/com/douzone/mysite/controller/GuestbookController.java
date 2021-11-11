@@ -28,6 +28,14 @@ public class GuestbookController {
 		return "guestbook/list";
 	}
 	
+	@RequestMapping("/spa")
+	public String spa(Model model) {
+		
+		List<GuestbookVo> list = guestbookService.list();
+		model.addAttribute("list", list);
+		return "guestbook/list-spa";
+	}
+	
 	@RequestMapping("add")
 	public String add(GuestbookVo vo) {
 		guestbookService.add(vo);

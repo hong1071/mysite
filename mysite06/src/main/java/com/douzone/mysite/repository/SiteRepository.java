@@ -11,8 +11,8 @@ import com.douzone.mysite.vo.SiteVo;
 @Repository
 public class SiteRepository {
 	
-	@Autowired
-	private DataSource dataSource;
+//	@Autowired
+//	private DataSource dataSource;
 	
 	@Autowired
 	private SqlSession sqlSession;
