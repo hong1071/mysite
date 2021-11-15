@@ -7,10 +7,78 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/guestbook-spa.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/guestbook-spa.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		
+		var messageBox = function(title, message, callback){
+			$( "#dialog-message" ).attr('title', title);
+			$( "#dialog-message p" ).attr('message', message);
+			$( "#dialog-message" ).dialog({
+				modal: true,
+				buttons: {
+					"확인": function(){
+						$(this).dialog('close');
+					}
+				},
+				close: callback
+			});
+		}
+	
+		$(function(){
+			
+			// 삭제 다이얼로그 객체 만들기
+			var dialogDelete = $('#dialog-delete-form').dialog({
+				autoOpen: false,
+				modal: true,
+				buttons: {
+					"삭제": function(){
+						// ajax로 삭제 처리
+					},
+					"취소": function(){
+						$(this).dialog('close');
+					}
+				}
+			});
+			
+			// 글 삭제 버튼 (Live Event)
+			$(document).on('click', '#list-guestbook li a', (function(event){
+				event.preventDefault();
+				
+				var no = $(this).attr('data-no');
+				//$(this).data('no');
+				$("#hidden-no").val(no);
+				dialogDelete.dialog('open');
+			}));
+			
+			// form validation
+			$("#add-form").submit(function(event){
+				event.preventDefault();
+				
+				// 이름
+				var name = $("#input-name").val();
+				if(!name/* name=='' 도 가능 */){
+					messageBox('새 글 작성', '이름은 반드시 입력해야 합니다.' , function(){
+						$("#input-name").focus();
+					});
+					
+					return;
+				}
+				
+				// 비밀번호
+				
+				// 내용
+				
+				console.log("ajax insert - submit!");
+			});
+		});
+	
+	</script>
+	
 </head>
 <body>
 	<div id="container">
@@ -26,14 +94,14 @@
 				</form>
 				<ul id="list-guestbook">
 
-					<li data-no=''>
+					<li data-no='2'>
 						<strong>지나가다가</strong>
 						<p>
 							별루입니다.<br>
 							비번:1234 -,.-
 						</p>
 						<strong></strong>
-						<a href='' data-no=''>삭제</a> 
+						<a href='' data-no='2'>삭제</a> 
 					</li>
 					
 					<li data-no=''>
@@ -68,8 +136,8 @@
 					<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
   				</form>
 			</div>
-			<div id="dialog-message" title="" style="display:none">
-  				<p></p>
+			<div id="dialog-message" title="새 글 작성" style="display:none">
+  				<p>이름을 반드시 입력해야 합니다.</p>
 			</div>						
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp">

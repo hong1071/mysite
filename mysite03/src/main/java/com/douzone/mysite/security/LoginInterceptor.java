@@ -38,5 +38,4 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		return false;
 	}
-
 }
